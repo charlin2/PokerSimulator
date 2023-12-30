@@ -86,6 +86,10 @@ public class Card {
         return (value >> 8) & 0xF;
     }
 
+    public char getRankChar() {
+        return RANKS.charAt(getRank());
+    }
+
     /**
      * Returns the suit of the card.
      * @return Suit of the card as an integer.

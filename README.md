@@ -1,71 +1,18 @@
-# Poker hand evaluator
+# Poker Hand Win Frequency Simulator
 
-This is a small poker hand evaluator I wrote for fun. It allows
-you to work with poker cards and hands, especially to determine
-the values of hands.
+This poker simulator was made for my friend Eli in order to spare him the effort of simulating hands manually.
 
-Note that there are much faster and more versatile evaluators
-for different sizes of hands. This is just a small project of
-mine, written for my own recreational purposes.
+The simulator determines the winning hand based on the assumption that all 5 community cards are face-up.
 
-## How to use
+The raw frequencies are normalized to account for the differing probabilities of each pocket combination.  For example, a pair is less probable than 2 suited cards (1/17 to 1/4), so the raw frequency of pocket aces will likely be less than the raw frequency of suited QJ, however, in practice, AA is a stronger hand when it does show up, thus the results are normalized to account for this.
 
-Documentation: https://jmp.github.io/poker-hand-evaluator/
+## How to Use
+Compile and run the `Poker.java` file.  You will be prompted for the number of players and rounds of simulation to perform in the CLI.
 
-There are a couple of useful classes: `Card` and `Hand`.
-
-## `Card` class
-
-The `Card` class self-explanatory:
-
-```java
-// Create a king of clubs
-Card kingOfClubs = new Card(Card.KING, Card.CLUBS);
-```
-
-A card can also be constructed from a string:
-
-```java
-// Create a king of clubs from a string
-Card kingOfClubs = new Card("Kc");
-```
-
-Hands are arrays of cards:
-
-```java
-// A hand containing five cards
-Card[] hand = {
-    new Card(Card.KING, Card.CLUBS),
-    new Card(Card.QUEEN, Card.HEARTS),
-    new Card(Card.JACK, Card.DIAMONDS),
-    new Card(Card.TEN, Card.SPADES),
-    new Card(Card.NINE, Card.CLUBS),
-};
-```
-
-## `Hand` class
-
-The `Hand` class is an abstract class containing only static methods.
-
-To evaluate a hand, use the `evaluate` method which takes an array
-of cards as its only argument:
-
-```java
-// Evaluate a hand
-int value = Hand.evaluate(hand);
-```
-
-The `evaluate` method returns the value of a hand as an integer
-between 1 and 7462. The lower the value, the more valuable the hand.
-
-The `fromString` method can be used to create a hand from a string:
-
-```java
-// Create a hand from a string
-Card[] hand = Hand.fromString("Kd 5s Jc Ah Qc");
-```
+Results will be outputted in a list of frequencies.  Divide the frequency by the number of simulations to get the win percentage of that pocket.
+![Frequency output](example_sim.png)
 
 ## Credits
 
-The evaluator implements Kevin Suffecool's 5-card hand evaluator,
+This poker simulator uses Jarkko Piiroinen's hand evaluator which implements Kevin Suffecool's 5-card hand evaluator,
 with the perfect hash optimization by Paul Senzee.
